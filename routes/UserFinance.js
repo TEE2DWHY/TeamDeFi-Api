@@ -5,11 +5,11 @@ const UserFinances = require("../models/UserFinances");
 
 router.post("/register", async (req, res) => {
     const newUser = new UserFinances({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        phonenumber: req.body.phonenumber,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
         email: req.body.email,
-        info: req.body.info
+        details: req.body.details
     })
 
     try {
