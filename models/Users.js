@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     lastName: { type: String, require: true },
     email: { type: String, require: true, unique: true },
     phoneNumber: { type: String, require: true, unique: true },
-    details: String
+    details: { type: String }
 })
 
-module.exports = mongoose.model("UserFinances", userSchema)
+module.exports = mongoose.model("Users", userSchema)

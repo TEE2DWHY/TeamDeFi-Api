@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const UserFinances = require("../models/UserFinances");
+const UserFinances = require("../models/Users");
 
 
 
@@ -7,8 +7,8 @@ router.post("/register", async (req, res) => {
     const newUser = new UserFinances({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        phoneNumber: req.body.phoneNumber,
         email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
         details: req.body.details
     })
 
