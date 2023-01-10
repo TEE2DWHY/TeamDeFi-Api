@@ -9,9 +9,11 @@ app.use(cors({
 
 
 const UserFinances = require("./routes/UserFinance");
+const Register = require("./routes/Register")
 app.use(express.json())
 
 app.use("/api", UserFinances)
+app.use("/user", Register)
 
 
 
@@ -21,6 +23,6 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log(err)
 })
 
-app.listen("5000", () => {
+app.listen(5000, () => {
     console.log("server is running on port 5000")
 })
