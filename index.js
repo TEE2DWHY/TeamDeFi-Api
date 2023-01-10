@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const app = express();
+const userRoute = require('./routes/Register')
 const cors = require("cors")
 app.use(cors({
     origin: "*"
@@ -9,11 +10,10 @@ app.use(cors({
 
 
 const UserFinances = require("./routes/UserFinance");
-const Register = require("./routes/Register")
 app.use(express.json())
 
-app.use("/api", UserFinances)
-app.use("/user", Register)
+// app.use("/api", UserFinances)
+app.use("/api/v1/auth", userRoute)
 
 
 
