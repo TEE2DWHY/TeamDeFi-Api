@@ -2,14 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const app = express();
-const userRoute = require('./routes/Register')
+const userRoute = require('./routes/Users')
 const cors = require("cors")
 app.use(cors({
     origin: "*"
 }))
 
 
-const UserFinances = require("./routes/UserFinance");
+// const UserFinances = require("./routes/UserFinance");
 app.use(express.json())
 
 // app.use("/api", UserFinances)

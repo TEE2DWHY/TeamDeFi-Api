@@ -1,7 +1,7 @@
 const cryptoJS = require('crypto-js');
 const Register = require('../models/Register');
 
-
+// Register
 const signup = async (req, res, next) => {
     const newUser = new Register({
         fullName: req.body.fullName,
@@ -20,7 +20,33 @@ const signup = async (req, res, next) => {
     }
 }
 
+//Login
+const login = async (req, res) =>{
+    try{
+        const user = Register.findOne({
+            email: req.body.email
+        });
+        !user && res.status(401).json("Wrong Username");
+        const hashedPassword = cryptoJS.AES.decrypt(
+            user.password,
+            process.env.SECRET_KEY
+        );
+        const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+        const inputPassword = req.body.password;
+        
+        originalPassword != inputPassword && 
+            res.status(401).json("Wrong Password");
+
+            res.status(200).json(user, "Logged in");
+    }
+    catch(err){
+            res.status(500).json(err)
+    }
+}
+
 
 module.exports = {
-    signup
+    signup,
+    login
 }
