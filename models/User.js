@@ -23,11 +23,6 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     minLength: [8, "Password length should be minimum of 8 characters"],
   },
-  confirmPassword: {
-    type: String,
-    required: [true, "Please ensure confirm password is same as password"],
-    minLength: [8, "Password length should be minimum of 8 characters"],
-  },
 });
 
 module.exports = mongoose.model("User", userSchema);
