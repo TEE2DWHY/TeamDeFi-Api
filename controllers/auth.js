@@ -2,6 +2,8 @@ const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const asyncWrapper = require("../middleware/asyncWrapper");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 //register new user
 const register = asyncWrapper(async (req, res) => {
   const { password, confirmPassword } = req.body;
@@ -32,8 +34,12 @@ const login = asyncWrapper(async (req, res) => {
       msg: "Invalid Credentials",
     });
   }
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_LIFETIME,
+  });
   res.status(StatusCodes.OK).json({
-    msg: "Login is Successful",
+    name: user.firstName,
+    token: token,
   });
 });
 
