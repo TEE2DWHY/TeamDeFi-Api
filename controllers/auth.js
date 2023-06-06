@@ -14,8 +14,9 @@ const register = asyncWrapper(async (req, res) => {
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({ ...req.body, password: hashedPassword });
+  const firstName = user.fullName.split(" ")[0];
   res.status(StatusCodes.CREATED).json({
-    msg: `user: ${user.firstName} is created successfully.`,
+    msg: `user: ${firstName} is created successfully.`,
   });
 });
 
@@ -37,8 +38,9 @@ const login = asyncWrapper(async (req, res) => {
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_LIFETIME,
   });
+  const firstName = user.fullName.split(" ")[0];
   res.status(StatusCodes.OK).json({
-    name: user.firstName,
+    firstName: firstName,
     token: token,
   });
 });
