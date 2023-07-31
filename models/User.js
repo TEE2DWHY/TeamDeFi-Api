@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please provide email"],
     unique: true,
   },
+  isEmailVerified: {
+    type: Boolean,
+    default: false,
+  },
   phoneNumber: {
     type: String,
     required: [true, "Please provide phone number"],
