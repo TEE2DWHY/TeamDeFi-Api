@@ -46,12 +46,9 @@ const verifyEmail = asyncWrapper(async (req, res) => {
       .status(StatusCodes.BAD_REQUEST)
       .json({ error: "Missing verification token." });
   }
-
   try {
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // Verify the JWT using your JWT secret
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const email = decodedToken.email;
-    console.log(email);
-
     const user = await User.findOneAndUpdate(
       { email },
       { $set: { isEmailVerified: true } }, // set isEmailVerified to true upon successful verification
@@ -76,15 +73,15 @@ const verifyEmail = asyncWrapper(async (req, res) => {
 const login = asyncWrapper(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      msg: "Invalid Credentials",
+    });
+  }
   // check if user is verified
   if (user.isEmailVerified === false) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       msg: `Please verify email before login`,
-    });
-  }
-  if (!user) {
-    return res.status(StatusCodes.UNAUTHORIZED).json({
-      msg: "Invalid Credentials",
     });
   }
   const passwordMatch = bcrypt.compare(password, user.password);
