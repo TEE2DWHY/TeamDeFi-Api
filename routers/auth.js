@@ -8,7 +8,7 @@ const {
 
 router.route("/register").post(register);
 router.route("/login").post(login);
-router.post("/forgot-password", forgotPassword);
+router.route("/forgot-password").post(forgotPassword);
 router.route("/verify-email").get(verifyEmail);
 
 module.exports = router;
