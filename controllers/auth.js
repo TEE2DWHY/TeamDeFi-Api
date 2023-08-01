@@ -28,7 +28,7 @@ const register = asyncWrapper(async (req, res) => {
     res.status(StatusCodes.CREATED).json({
       msg: `account with name: ${firstName} is created successfully. Please check your email for verification.`,
       token: emailVerificationToken,
-      url: `${process.env.BASE_URL}/api/v1/auth/verify-email?token=${emailVerificationToken}`,
+      // verification_url: `${process.env.BASE_URL}/api/v1/auth/verify-email?token=${emailVerificationToken}`,
     });
   } catch (error) {
     console.error("Error creating user:", error.message);
